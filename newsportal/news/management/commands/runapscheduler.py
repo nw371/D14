@@ -15,7 +15,7 @@ from django_apscheduler.models import DjangoJobExecution
 from news.models import Category, Post #pycharm хреново работает с путями в django поектах. этот импорт, хоть и подчёркнут. но работает
 
 from news.models import CategorySub
-from news.secda import admail
+from news.secda import admail #файл с личной информацией исключён из гит
 
 logger = logging.getLogger(__name__)
 

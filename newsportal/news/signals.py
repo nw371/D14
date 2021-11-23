@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from .models import Post, PostCategory, CategorySub
-from .secda import admail
+from .secda import admail #файл с личной инфо исключён из гит
 
 @receiver(post_save, sender=Post)
 def notify_subscribers_publication(instance, created, **kwargs):
