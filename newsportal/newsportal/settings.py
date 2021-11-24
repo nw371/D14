@@ -152,21 +152,27 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_VERIFICATION = 'none'
-# # ACCOUNT_FORMS = {'signup': 'sign.forms.BasicSignupForm'}
-#
-# EMAIL_HOST = smtpserv  # адрес сервера Яндекс-почты для всех один и тот же
-# EMAIL_PORT = smtport  # порт smtp сервера тоже одинаковый
-# EMAIL_HOST_USER = admail  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-# EMAIL_HOST_PASSWORD = passw  # пароль
-# EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
-# ADMINS = [
-#     (adminame, admail),
-#     # список всех админов в формате ('имя', 'их почта')
-# ]
-# SERVER_EMAIL = admail # это будет у нас вместо аргумента FROM в массовой рассылке
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_FORMS = {'signup': 'sign.forms.BasicSignupForm'}
+
+EMAIL_HOST = smtpserv  # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = smtport  # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = admail  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = passw  # пароль
+EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+ADMINS = [
+    (adminame, admail),
+    # список всех админов в формате ('имя', 'их почта')
+]
+SERVER_EMAIL = admail # это будет у нас вместо аргумента FROM в массовой рассылке
 DEFAULT_FROM_EMAIL = admail
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

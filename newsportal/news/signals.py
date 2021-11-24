@@ -18,14 +18,11 @@ def notify_subscribers_publication(instance, created, **kwargs):
 @receiver(m2m_changed, sender=Post.category.through)
 def notify_subscribers_publication(instance, **kwargs):
     subject = f'Добавлена публикация: {instance.name} {instance.date.strftime("%d %m %Y")}'
-    print(f"_____________________________________________________________INSTANCE AND KWARGS: {instance} **** {kwargs}")
     cat_id = list(kwargs.get('pk_set'))[0]
     filtered_susbscrbrs = list(CategorySub.objects.filter(category_id=cat_id).values('subscriber_id__user__email'))
-    print(f"_____________________________________________________________FILTERED SUBSCIRBERS: {filtered_susbscrbrs}")
     list_of_subscribers = [d['subscriber_id__user__email'] for d in filtered_susbscrbrs if 'subscriber_id__user__email' in d]
     pub_updates = render_to_string('email/pub_updates.html', {'post': instance, 'instance': instance.id})
     send_updates(subject, pub_updates, list_of_subscribers)
-    print(f"_____________________________________________________________LIST OF SUBSCIRBERS: {list_of_subscribers}")
 
 
 def send_updates(subject, pub_updates, list_of_subscribers):

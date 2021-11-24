@@ -1,8 +1,11 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, DeleteView, CreateView
 from .forms import PostForm
 from .filters import PostFilter
@@ -144,3 +147,24 @@ def add_to_subscribers(request):
         Subscriber.objects.get(user_id=user).category.add(Category.objects.get(id=cat))
         send_email(request)
     return redirect('/news/subscribed/')
+
+def collect_weekly_articles():
+    date_to_filter = datetime.date.today()-datetime.timedelta(days=7)
+    print(date_to_filter)
+    subject = "Обновления статей за неделю"
+
+    for i in range(1,4):
+        arts = Category.objects.filter(id=i, post__date__gte = date_to_filter).values("post__name", "post__id")
+        wkly_updates = render_to_string('email/weekly_pubs.html', {'posts': arts })
+        #выдираем названия статей категории 1 созданных/изменённых за последнюю неделю
+        filtered_susbscrbrs = list(CategorySub.objects.filter(category_id=i).values('subscriber_id__user__email'))
+        list_of_subscribers = [d['subscriber_id__user__email'] for d in filtered_susbscrbrs if 'subscriber_id__user__email' in d]
+        # отправляем письмо
+        msg = EmailMultiAlternatives(
+            subject=subject,
+            from_email=admail,  # здесь указываете почту, с которой будете отправлять
+            to=list_of_subscribers,  # здесь список получателей.
+        )
+        msg.attach_alternative(wkly_updates, "text/html")
+        msg.content_subtype = "html"
+        msg.send()
