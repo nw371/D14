@@ -1,17 +1,18 @@
-import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
+
 from django.shortcuts import redirect
-from django.template.loader import render_to_string
+
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, DeleteView, CreateView
 from .forms import PostForm
 from .filters import PostFilter
 from .models import Post, Category, Subscriber, CategorySub, Author
 from .secda import admail
 import django.dispatch
+
+from .tasks import article_created
 
 my_post_signal = django.dispatch.Signal()
 class IndexPage(TemplateView):
@@ -43,23 +44,37 @@ class PostDetail(DetailView):
     context_object_name = 'post'  # название объекта. в нём будет
 
 class AddPub(CreateView): #(PermissionRequiredMixin,CreateView):
+    print("ТОЧКА НОМЕР 1")
     template_name = 'news/add.html'
     form_class = PostForm
     #permission_required = ('post.add_post',)
+    print("ТОЧКА НОМЕР 2")
 
+    def form_valid(self, form):
+        post = form.save()
+        print(f"THIS IS POST {post}")
+        post.save()
+        print(f"THIS IS POST ID {post.id}")
+        article_created(post.id)
+        return redirect(f'/news/{post.id}')
 
     def get_context_data(self, **kwargs):
+        print("ТОЧКА НОМЕР 3")
         context = super().get_context_data(**kwargs)
         context['is_not_author'] = not Author.objects.filter(user_id=self.request.user.id).exists()
         context['author'] = Author.objects.filter(user_id=self.request.user.id)
+        print("ТОЧКА НОМЕР 4")
         return context
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self, article_created=None):
+        print("ТОЧКА НОМЕР 5")
         """ Passes the request object to the form class.
          This is necessary to only display members that belong to a given user"""
 
         kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
+        print("ТОЧКА НОМЕР 6")
+
         return kwargs
 
 class PostEdit(UpdateView): #(PermissionRequiredMixin, UpdateView):
@@ -148,23 +163,3 @@ def add_to_subscribers(request):
         send_email(request)
     return redirect('/news/subscribed/')
 
-def collect_weekly_articles():
-    date_to_filter = datetime.date.today()-datetime.timedelta(days=7)
-    print(date_to_filter)
-    subject = "Обновления статей за неделю"
-
-    for i in range(1,4):
-        arts = Category.objects.filter(id=i, post__date__gte = date_to_filter).values("post__name", "post__id")
-        wkly_updates = render_to_string('email/weekly_pubs.html', {'posts': arts })
-        #выдираем названия статей категории 1 созданных/изменённых за последнюю неделю
-        filtered_susbscrbrs = list(CategorySub.objects.filter(category_id=i).values('subscriber_id__user__email'))
-        list_of_subscribers = [d['subscriber_id__user__email'] for d in filtered_susbscrbrs if 'subscriber_id__user__email' in d]
-        # отправляем письмо
-        msg = EmailMultiAlternatives(
-            subject=subject,
-            from_email=admail,  # здесь указываете почту, с которой будете отправлять
-            to=list_of_subscribers,  # здесь список получателей.
-        )
-        msg.attach_alternative(wkly_updates, "text/html")
-        msg.content_subtype = "html"
-        msg.send()

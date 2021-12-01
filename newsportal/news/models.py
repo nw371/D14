@@ -140,3 +140,4 @@ class Subscriber(models.Model):
 class CategorySub(models.Model):
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
     subscriber = models.ForeignKey(Subscriber, on_delete = models.CASCADE)
+
