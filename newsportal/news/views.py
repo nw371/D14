@@ -1,9 +1,12 @@
+from django.utils.translation import gettext as _ # импортируем функцию для перевода
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
+from django.http import HttpResponse
 
 from django.shortcuts import redirect
+from django.views import View
 
 from django.views.generic import ListView, DetailView, TemplateView, UpdateView, DeleteView, CreateView
 from .forms import PostForm
@@ -163,3 +166,9 @@ def add_to_subscribers(request):
         send_email(request)
     return redirect('/news/subscribed/')
 
+
+class Index(View):
+    def get(self, request):
+        string = _('Hello world')
+
+        return HttpResponse(string)
