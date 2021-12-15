@@ -6,6 +6,11 @@
 # python3 manage.py makemigrations
 # python3 manage.py migrate
 
+
+# python manage.py makemessages -l ru #добавление перевода
+# python manage.py compilemessages #компиляция перевода
+
+
 #запуск консоли django
 #python manage.py shell
 

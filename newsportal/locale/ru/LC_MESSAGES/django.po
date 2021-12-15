@@ -22,4 +22,4 @@ msgstr ""
 
 #: news/views.py:172
 msgid "Hello world"
-msgstr ""
+msgstr "Привет мир"
