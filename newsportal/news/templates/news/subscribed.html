@@ -1,13 +1,14 @@
 {% extends 'default.html' %}
+{% load i18n %}
 {% load my_filters %}
 <!-- Название у нас будет Новости -->
 {% block title %}
-Добавление публикаций
+{% translate 'Добавление публикаций' %}
 {% endblock title %}
 
 
 <!-- В контенте на странице мы выводим все публикации -->
 {% block content %}
-Ай, молодец - подписался!
+{% translate 'Ай, молодец - подписался!' %}
 
 {% endblock content %}

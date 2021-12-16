@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>{% trans 'Новостной портал' %}</title>
+        <title>{% translate 'Новостной портал' %}</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -18,28 +18,30 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/">{% trans 'Новостной Сайт' %}</a>
+                <a class="navbar-brand" href="/">{% translate 'Новостной Сайт' %}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 <!--                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="">На главную</a></li>-->
-                        <li class="nav-item"><a class="nav-link" href="/news/">{% trans 'Публикации' %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/news/categories/">{% trans 'Категории' %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/news/search/">{%t rans 'Поиск публикаций' %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/news/add/">{% trans 'Добавить публикацию' %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/news/">{% translate 'Публикации' %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/news/categories/">{% translate 'Категории' %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/news/search/">{% translate 'Поиск публикаций' %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/news/add/">{% translate 'Добавить публикацию' %}</a></li>
                         {% if not user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="/accounts/login/">{% trans 'Войти' %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/accounts/signup/">{% trans 'Регистрация' %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/login/">{% translate 'Войти' %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/signup/">{% translate 'Регистрация' %}</a></li>
 <!--                        <li class="nav-item"><a class="nav-link" href="/accounts/login/">Войти через Google</a></li>-->
                         {% endif %}
                         {% if user.is_authenticated %}
-                        <li class="navbar-text">{% trans 'Вы зашли, как:' %}{{request.user.username}}</li>
-                        <li class="nav-item"><a class="nav-link" href="/accounts/logout/">{% trans 'Выйти' %}</a></li>
+                        <li class="navbar-text">{% translate 'Вы зашли, как:' %}{{request.user.username}}</li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/logout/">{% translate 'Выйти' %}</a></li>
 
                         {% endif %}
+
                          <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
                             <input type="hidden" name="next" value="{{ redirect_to }}">
-                                <select name="language" id="">
+                                <select name="language">
+                                    {% get_current_language as LANGUAGE_CODE %}
                                     {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
                                     {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
                                     {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
@@ -48,7 +50,7 @@
                                         </option>
                                     {% endfor %}
                                 </select>
-                            <input type="submit" value="set">
+                            <input type="submit" value="Set">
                         </form>
 <!--                        <li class="nav-item dropdown">-->
 <!--                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>-->

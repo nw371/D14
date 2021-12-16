@@ -22,7 +22,7 @@
 <!--{% if is_not_subscriber %}-->
 
 <!--{% endif %}-->
-<h1>{% trans 'Показано' %} {{ categoryview|length }} {% trans 'публикаций' %).</h1>
+<h1>{% trans 'Показано' %} {{ categoryview|length }} {% trans 'публикаций' %}.</h1>
     <table>
             <tr>
                 <td>
@@ -32,15 +32,16 @@
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>{% trans 'Дата' %}</b>
+                    <b>Дата</b>
                 </td>
                 <td>
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>{% trans 'Предпросмотр' %}</b>
+                    <b>Предпросмотр</b>
                 </td>
             </tr>
+
         {% for post in categoryview %}
             <tr>
                 <td>

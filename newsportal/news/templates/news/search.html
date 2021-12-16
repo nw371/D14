@@ -1,8 +1,9 @@
 {% extends 'default.html' %}
+{% load i18n %}
 {% load my_filters %}
 <!-- Название у нас будет Новости -->
 {% block title %}
-Поиск публикаций
+{% translate 'Поиск публикаций' %}
 {% endblock title %}
 
 
@@ -18,29 +19,29 @@
 </form>
 
 
-<h1>Список публикаций</h1>
+<h1>{% translate 'Список публикаций' %}</h1>
     <table>
             <tr>
                 <td>
-                    <b>Заголовок</b>
+                    <b>{% translate 'Заголовок' %}</b>
                 </td>
                 <td>
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>Категория</b>
+                    <b>{% translate 'Категория' %}</b>
                 </td>
                 <td>
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>Дата</b>
+                    <b>{% translate 'Дата' %}</b>
                 </td>
                 <td>
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>Предпросмотр</b>
+                    <b>{% translate 'Предпросмотр' %}</b>
                 </td>
             </tr>
         {% for post in filter.qs %}
@@ -48,9 +49,9 @@
                 <td>
                    <a href="/news/{{post.id}}">{{ post.name|censor }} </a>
                     <br>
-                    <a href="{% url 'post_edit' post.id %}" > Редактировать</a>
+                    <a href="{% url 'post_edit' post.id %}" > {% translate 'Редактировать' %}</a>
                     <br>
-                    <a href="/news/{{post.id}}/delete">Удалить</a>
+                    <a href="/news/{{post.id}}/delete">{% translate 'Удалить' %}</a>
                     <br>
                     ------------------------------------------------
                 </td>
@@ -82,7 +83,7 @@
 
     <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
     {% if page_obj.has_previous %}
-        <a href="?page=1">First</a>
+        <a href="?page=1">{% translate 'Первая' %}</a>
         <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
     {% endif %}
 
@@ -98,7 +99,7 @@
     <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
     {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}">>>></a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">{% translate 'Последняя' %}</a>
     {% endif %}
 
 {% endif %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 17:46+0000\n"
+"POT-Creation-Date: 2021-12-16 22:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,89 +16,83 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: news/models.py:9
 msgid "Пользователь"
-msgid_plural "Пользователи"
-msgstr[0] "User"
-msgstr[1] "Users"
+msgstr "User"
 
 #: news/models.py:11 news/models.py:71 news/models.py:115
+#: news/templates/news/post.html:23
 msgid "Рейтинг"
-msgid_plural "Рейтинги"
-msgstr[0] "Rating"
-msgstr[1] "Ratings"
+msgstr "Rating"
 
-#: news/models.py:40 news/models.py:74
+#: news/models.py:40 news/models.py:74 news/templates/news/post.html:15
 msgid "Автор"
-msgid_plural "Авторы"
-msgstr[0] "Author"
-msgstr[1] "Authors"
+msgstr "Author"
+
+#: news/models.py:41
+msgid "Авторы"
+msgstr "Authors"
 
 #: news/models.py:45 news/models.py:67
 msgid "Название"
-msgid_plural "Названия"
-msgstr[0] "Name"
-msgstr[1] "Names"
+msgstr "Title"
 
-#: news/models.py:51 news/models.py:76
+#: news/models.py:51 news/models.py:76 news/templates/news/post.html:17
+#: news/templates/news/search.html:32
 msgid "Категория"
-msgid_plural "Категории"
-msgstr[0] "Category"
-msgstr[1] "Categories"
+msgstr "Category"
 
-#: news/models.py:65 news/models.py:113 news/templates/news/category.html:35
+#: news/models.py:52 news/templates/news/categories.html:8
+#: templates/default.html:27
+msgid "Категории"
+msgstr "Categories"
+
+#: news/models.py:65 news/models.py:113 news/templates/news/news.html:24
+#: news/templates/news/post.html:11 news/templates/news/search.html:38
 msgid "Дата"
-msgid_plural "Даты"
-msgstr[0] "Date"
-msgstr[1] "Dates"
+msgstr "Date"
 
 #: news/models.py:69
 msgid "Tекст"
-msgid_plural "Тексты"
-msgstr[0] "Text"
-msgstr[1] "Texts"
+msgstr "Text"
 
 #: news/models.py:91
 msgid "Публикация"
-msgid_plural "Публикации"
-msgstr[0] "Publication"
-msgstr[1] "Publications"
+msgstr "Publication"
+
+#: news/models.py:92 templates/default.html:26
+msgid "Публикации"
+msgstr "Publications"
 
 #: news/models.py:126
 msgid "Комментарий"
-msgid_plural "Комментарии"
-msgstr[0] "Comment"
-msgstr[1] "Comments"
+msgstr "Comment"
+
+#: news/models.py:127
+msgid "Комментарии"
+msgstr "Comments"
 
 #: news/models.py:131 news/models.py:138
 msgid "Подписчик"
-msgid_plural "Подписчики"
-msgstr[0] "Subscriber"
-msgstr[1] "Subscribers"
+msgstr "Subscriber"
 
-#: news/templates/news/add.html:6
+#: news/models.py:139
+msgid "Подписчики"
+msgstr "Subscribers"
+
+#: news/templates/news/add.html:6 news/templates/news/subscribed.html:6
 msgid "Добавление публикаций"
 msgstr "Add publication"
 
 #: news/templates/news/add.html:14
 msgid "Для добавления публикаций Вам нужно быть автором."
-msgstr "You have to be author to add publication"
+msgstr "You have to be an author to add publication"
 
-#: news/templates/news/add.html:15
-#, fuzzy
-#| msgid "Подписчик"
-#| msgid_plural "Подписчики"
+#: news/templates/news/add.html:15 news/templates/news/edit.html:16
 msgid "Стать автором"
-msgstr "Subscriber"
-
-#: news/templates/news/categories.html:8 templates/default.html:27
-#, fuzzy
-#| msgid "Категория"
-#| msgid_plural "Категории"
-msgid "Категории"
-msgstr "Categories"
+msgstr "Become author"
 
 #: news/templates/news/category.html:13
 msgid "Список публикаций в категории"
@@ -112,33 +106,74 @@ msgstr "Become a subscriber"
 msgid "Вы подписаны на эту категорию"
 msgstr "You are subscribed to this category"
 
-#: news/templates/news/category.html:25
+#: news/templates/news/category.html:25 news/templates/news/news.html:14
 msgid "Показано"
-msgstr "Shown"
+msgstr "Displayed"
 
-#: news/templates/news/category.html:29
+#: news/templates/news/category.html:25 news/templates/news/news.html:14
+msgid "публикаций"
+msgstr "publications"
+
+#: news/templates/news/category.html:29 news/templates/news/news.html:18
+#: news/templates/news/search.html:26
 msgid "Заголовок"
-msgstr "Header"
+msgstr "Title"
 
-#: news/templates/news/category.html:41
-msgid "Предпросмотр"
-msgstr "Preview"
-
-#: news/templates/news/category.html:49
+#: news/templates/news/category.html:50 news/templates/news/news.html:38
+#: news/templates/news/search.html:52
 msgid "Редактировать"
 msgstr "Edit"
 
-#: news/templates/news/category.html:51
+#: news/templates/news/category.html:52 news/templates/news/news.html:40
+#: news/templates/news/search.html:54
 msgid "Удалить"
 msgstr "Delete"
 
-#: news/templates/news/category.html:76
+#: news/templates/news/category.html:77 news/templates/news/news.html:64
+#: news/templates/news/search.html:86
 msgid "Первая"
 msgstr "First"
 
-#: news/templates/news/category.html:92
+#: news/templates/news/category.html:93 news/templates/news/news.html:80
+#: news/templates/news/search.html:102
 msgid "Последняя"
 msgstr "Last"
+
+#: news/templates/news/edit.html:4
+msgid "Редактирование публикации"
+msgstr "Edit publication"
+
+#: news/templates/news/edit.html:15
+msgid "Для редактирования публикаций запишитесь в авторы"
+msgstr "To edit publication you have to be an author"
+
+#: news/templates/news/news.html:7
+msgid "Новости"
+msgstr "News"
+
+#: news/templates/news/news.html:13 news/templates/news/search.html:22
+msgid "Список публикаций"
+msgstr "List of publications"
+
+#: news/templates/news/news.html:30 news/templates/news/search.html:44
+msgid "Предпросмотр"
+msgstr "Preview"
+
+#: news/templates/news/post.html:12
+msgid "Время"
+msgstr "Time"
+
+#: news/templates/news/post.html:25
+msgid "Тип публикации"
+msgstr "Publication type"
+
+#: news/templates/news/search.html:6 templates/default.html:28
+msgid "Поиск публикаций"
+msgstr "Search"
+
+#: news/templates/news/subscribed.html:12
+msgid "Ай, молодец - подписался!"
+msgstr "Congratulations - you are subscriber now!"
 
 #: templates/default.html:11
 msgid "Новостной портал"
@@ -147,13 +182,6 @@ msgstr "News portal"
 #: templates/default.html:21
 msgid "Новостной Сайт"
 msgstr "News website"
-
-#: templates/default.html:26
-#, fuzzy
-#| msgid "Публикация"
-#| msgid_plural "Публикации"
-msgid "Публикации"
-msgstr "Publications"
 
 #: templates/default.html:29
 msgid "Добавить публикацию"
@@ -164,11 +192,8 @@ msgid "Войти"
 msgstr "Login"
 
 #: templates/default.html:32
-#, fuzzy
-#| msgid "Регистрация"
-#| msgid_plural "Регистрации"
 msgid "Регистрация"
-msgstr "Registration"
+msgstr "Register"
 
 #: templates/default.html:36
 msgid "Вы зашли, как:"

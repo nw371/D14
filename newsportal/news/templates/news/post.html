@@ -1,5 +1,6 @@
 <!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
 {% extends 'default.html' %}
+{% load i18n %}
 {% load my_filters %}
 <!-- Название-->
 {% block title %}
@@ -7,21 +8,21 @@
 <br>
 <br>
 <br>
-Дата: {{ post.date|date:'d m Y' }}
-Время: {{ post.date|date:'H:m'}}
+{% translate 'Дата' %}: {{ post.date|date:'d m Y' }}
+{% translate 'Время' %}: {{ post.date|date:'H:m'}}
 
 <br>
-Автор: {{ post.author.user.first_name}} {{ post.author.user.last_name}}
+{% translate 'Автор' %}: {{ post.author.user.first_name}} {{ post.author.user.last_name}}
 <br>
-Категория:
+{% translate 'Категория' %}:
 {% for i in post.category.values %}
 {{i.name}}
 {% endfor %}
 
 <br>
-Рейтинг: {{ post.rating}}
+{% translate 'Рейтинг' %}: {{ post.rating}}
 <br>
-Тип публикации: {{post.get_type_display}}
+{% translate 'Тип публикации' %}: {{post.get_type_display}}
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим сам товар, ID которого было передано в адрес -->
