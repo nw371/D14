@@ -165,10 +165,3 @@ def add_to_subscribers(request):
         Subscriber.objects.get(user_id=user).category.add(Category.objects.get(id=cat))
         send_email(request)
     return redirect('/news/subscribed/')
-
-
-class Index(View):
-    def get(self, request):
-        string = _('Hello world')
-
-        return HttpResponse(string)

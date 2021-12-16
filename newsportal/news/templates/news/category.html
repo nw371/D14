@@ -1,5 +1,6 @@
 <!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
 {% extends 'default.html' %}
+{% load i18n %}
 {% load my_filters %}
 <!-- Название у нас будет Новости -->
 {% block title %}
@@ -9,35 +10,35 @@
 <!-- В контенте на странице мы выводим все публикации -->
 {% block content %}
 
-<h1>Список публикаций в категории "{{ category.name }}"</h1>
+<h1>{% trans 'Список публикаций в категории' %} "{{ category.name }}" </h1>
 <!--<button> <a class="btn btn-primary" href="/news/subscribe/"> Подписаться на спам </a> </button>-->
 <!--<a class="btn btn-primary" href="send_mail"> Стать подписчиком </a>-->
 {% if not_subscriber %}
-<button> <a class="btn btn-primary" href="/news/subscribe/"> Стать подписчиком </a> </button>
+<button> <a class="btn btn-primary" href="/news/subscribe/"> {% trans 'Стать подписчиком' %} </a> </button>
 {% else %}
-Вы подписаны на эту категорию
+{% trans 'Вы подписаны на эту категорию' %}
 {% endif %}
 
 <!--{% if is_not_subscriber %}-->
 
 <!--{% endif %}-->
-<h1>Показано {{ categoryview|length }} публикаций.</h1>
+<h1>{% trans 'Показано' %} {{ categoryview|length }} {% trans 'публикаций' %).</h1>
     <table>
             <tr>
                 <td>
-                    <b>Заголовок</b>
+                    <b>{% trans 'Заголовок' %}</b>
                 </td>
                 <td>
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>Дата</b>
+                    <b>{% trans 'Дата' %}</b>
                 </td>
                 <td>
                      <b><pre> | </pre></b>
                 </td>
                 <td>
-                    <b>Предпросмотр</b>
+                    <b>{% trans 'Предпросмотр' %}</b>
                 </td>
             </tr>
         {% for post in categoryview %}
@@ -45,9 +46,9 @@
                 <td>
                    <a href="/news/{{post.id}}">{{ post.name|censor }} </a>
                     <br>
-                    <a href="/news/{{post.id}}/edit">Редактировать</a>
+                    <a href="/news/{{post.id}}/edit">{% trans 'Редактировать' %}</a>
                     <br>
-                    <a href="/news/{{post.id}}/delete">Удалить</a>
+                    <a href="/news/{{post.id}}/delete">{% trans 'Удалить' %}</a>
                     <br>
                     ------------------------------------------------
                 </td>
@@ -72,7 +73,7 @@
 
     <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
     {% if page_obj.has_previous %}
-        <a href="?page=1">First</a>
+        <a href="?page=1">{% trans 'Первая' %}</a>
         <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
     {% endif %}
 
@@ -88,7 +89,7 @@
     <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
     {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}">>>></a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">{% trans 'Последняя' %}</a>
     {% endif %}
 
 {% endif %}

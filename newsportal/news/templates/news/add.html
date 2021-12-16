@@ -1,8 +1,9 @@
 {% extends 'default.html' %}
+{% load i18n %}
 {% load my_filters %}
 <!-- Название у нас будет Новости -->
 {% block title %}
-Добавление публикаций
+{% trans 'Добавление публикаций' %}
 {% endblock title %}
 
 
@@ -10,8 +11,8 @@
 {% block content %}
 <!--не актуально после создания системы логина-->
 {% if is_not_author %}
-Для добавления публикаций Вам нужно быть автором. <br>
-<button> <a class="btn btn-primary" href="/news/becomeauthor/"> Стать автором </a> </button>
+{% trans 'Для добавления публикаций Вам нужно быть автором.' %}<br>
+<button> <a class="btn btn-primary" href="/news/becomeauthor/"> {% trans 'Стать автором' %}</a> </button>
 {% endif %}
 {% if not is_not_author %}
 
@@ -19,7 +20,7 @@
     {% csrf_token %}
     {{ form.as_p }} <!-- Теперь нам нужна только готовая форма и кнопка -->
     <br>
-    <input type="submit" value="Добавить публикацию">
+    <input type="submit" value="{% trans Добавить публикацию %}">
 </form>
 {% endif %}
 
